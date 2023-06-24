@@ -1,6 +1,7 @@
 Algoritmo TP_Programacion
 	definir articulos, rubro, codigo como caracter;
-	definir cant, i, j, rub, cod, venta1, venta2, suma, op, long como entero;
+	definir cant, i, j, rub, cod, venta1, venta2, suma, op como entero;
+	definir valido como logico;
 	suma=0;
 	rubro="";
 	codigo="";
@@ -8,21 +9,22 @@ Algoritmo TP_Programacion
 	Escribir "Ingrese la cantidad de articulos que desea cargar:";
 	leer cant;
 	dimension articulos[cant,7];
-	long<-cant;
 	
 	para i=0 hasta cant-1 con paso 1 Hacer
 		Escribir "ARTICULO ", i+1, ":";
 		Escribir "Ingrese el codigo:";
-		Escribir "(3 primeros digitos para el rubro)";
-		Escribir "100 - Tornillos y tuercas";
-		Escribir "300 - Adhesivos";
-		Escribir "450 - Herrajes";
-		Escribir "680 - Pinturas";
-		Escribir "720 - Electricidad";
-		leer rub;
-		Escribir "(5 digitos para el numero de articulo)";
-		leer cod;
-		Valido(rub, cod, rubro, codigo);
+		Repetir
+			Escribir "(3 primeros digitos para el rubro)";
+			Escribir "100 - Tornillos y tuercas";
+			Escribir "300 - Adhesivos";
+			Escribir "450 - Herrajes";
+			Escribir "680 - Pinturas";
+			Escribir "720 - Electricidad";
+			leer rub;
+			Escribir "(5 digitos para el numero de articulo)";
+			leer cod;
+			valido <- ValidarCodigo(rub, cod, rubro, codigo);
+		hasta que valido=verdadero
 		articulos[i,0]=Concatenar(rubro, codigo);
 		Escribir "Ingrese la descripcion:";
 		leer articulos[i,1];
@@ -53,24 +55,18 @@ Algoritmo TP_Programacion
 			Escribir "Opcion inexistente";
 		FinSi
 	Hasta Que op=6
-
 FinAlgoritmo
 
-subproceso Valido(rub, cod, rubro por referencia, codigo por referencia)
+subproceso valido <- ValidarCodigo(rub, cod, rubro por referencia, codigo por referencia)
 	definir i como entero;
-	definir valid como logico;	
-	Repetir
-		si rub<>100 & rub<>300 & rub<>450 & rub<>680 & rub<>720 | cod<10000 | cod>99999 Entonces
-			valid=falso;
-			Escribir "Codigo invalido. Vuelva a intentarlo";
-			Escribir "Rubro:";
-			leer rub;
-			Escribir "Numero de articulo:";
-			leer cod;
-		SiNo
-			valid=verdadero;
-			rubro=ConvertirATexto(rub);
-			codigo=ConvertirATexto(cod);
-		FinSi
-	Hasta Que valid=verdadero	
+	definir valido como logico;	
+	
+	si rub<>100 & rub<>300 & rub<>450 & rub<>680 & rub<>720 | cod<10000 | cod>99999 Entonces
+		valido=falso;
+		Escribir "Codigo invalido. Vuelva a intentarlo";
+	SiNo
+		valido=verdadero;
+		rubro=ConvertirATexto(rub);
+		codigo=ConvertirATexto(cod);
+	FinSi	
 Finsubproceso
