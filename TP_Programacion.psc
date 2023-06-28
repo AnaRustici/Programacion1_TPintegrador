@@ -2,7 +2,7 @@ Algoritmo TP_Programacion
 	//Variables para carga de articulos
 	definir articulos, rubro, codigo como caracter;
 	definir cant, i, j, rub, cod, venta1, venta2, suma, op,precio_validacion,stock_validacion como entero;
-	//Variables para opciones de menú
+	//Variables para opciones de menÃº
 	definir buscarCodigo, auxArt como caracter;
 	definir stock, ventaMes, stock_actual, totalVentas, stockAct como entero;
 	definir codValido como logico;
@@ -53,49 +53,53 @@ Algoritmo TP_Programacion
 		//ingreso de precio
 		leer precio_validacion;
 		Mientras precio_validacion <= 0 Hacer
-			Escribir "ingresaste mal el precio, vuelve a ingresarlo: "
-			leer precio_validacion
+			Escribir "ingresaste mal el precio, vuelve a ingresarlo: ";
+			leer precio_validacion;
 		FinMientras
-		articulos[i,2] = ConvertirATexto(precio_validacion)
+		articulos[i,2] = ConvertirATexto(precio_validacion);
 		
 		//ingreso de stock
 		Escribir "Ingrese el stock:";
 		leer stock_validacion;
 		Mientras stock_validacion < 0 Hacer
-			Escribir "ingresaste mal el stock, vuelve a ingresarlo: "
+			Escribir "ingresaste mal el stock, vuelve a ingresarlo: ";
 			leer stock_validacion;
 		FinMientras
-		articulos[i,3] = ConvertirATexto(stock_validacion)
+		articulos[i,3] = ConvertirATexto(stock_validacion);
 		
-		
-		//ingreso de la cantidad vendida en la 1er quincena
-		Escribir "Ingrese la cantidad vendida en la 1° quincena:";
-		leer venta1;
-		Mientras venta1 < 0 Hacer
-			Escribir "ingresaste mal la venta por quincena, vuelve a ingresarlo: "
+		Repetir
+			//ingreso de la cantidad vendida en la 1er quincena
+			Escribir "Ingrese la cantidad vendida en la 1Â° quincena:";
 			leer venta1;
-		FinMientras
-		
-		//ingreso de la cantidad vendida en la 2da quincena
-		Escribir "Ingrese la cantidad vendida en la 2° quincena:";
-		leer venta2;
-		Mientras venta2 < 0 Hacer
-			Escribir "ingresaste mal la venta por quincena, vuelve a ingresarlo: "
+			Mientras venta1 < 0 Hacer
+				Escribir "ingresaste mal la venta por quincena, vuelve a ingresarlo: ";
+				leer venta1;
+			FinMientras
+			
+			//ingreso de la cantidad vendida en la 2da quincena
+			Escribir "Ingrese la cantidad vendida en la 2Â° quincena:";
 			leer venta2;
-		FinMientras
-		//suma equivale a la suma total de las dos quincenas.
-		suma=venta1+venta2;
-		//totalVentas sera la suma total de todos los articulos
-		totalVentas = totalVentas + suma
+			Mientras venta2 < 0 Hacer
+				Escribir "ingresaste mal la venta por quincena, vuelve a ingresarlo: ";
+				leer venta2;
+			FinMientras
+			//suma equivale a la suma total de las dos quincenas.
+			suma=venta1+venta2;
+			si suma>stock_validacion Entonces
+				Escribir "Error. Las ventas no pueden ser mayores que la cantidad de articulos existentes.";
+			FinSi
+		Hasta Que suma<stock_validacion
+		
 		//convertimos luego a texto para que pueda guardarse en el arreglo
-		articulos[i,4] = ConvertirATexto(venta1)
-		articulos[i,5] = ConvertirATexto(venta2)
-		articulos[i,6]=ConvertirATexto(suma)
+		articulos[i,4] = ConvertirATexto(venta1);
+		articulos[i,5] = ConvertirATexto(venta2);
+		articulos[i,6]=ConvertirATexto(suma);
 		//guardamos el valor del stock actual de ese producto en una variable, y luego lo guardamos en una posicion del arreglo principal
 		stock_actual = ConvertirANumero(articulos[i,3]) - suma;
 		articulos[i,7] = ConvertirATexto(stock_actual);
 		suma=0;
 	FinPara
+	//totalVentas sera la suma total de todos los articulos
 	Para i = 0 Hasta cant -1 Con Paso 1 Hacer
 		ventaMes=ConvertirANumero(articulos[i,6]);
 		totalVentas=totalVentas+ventaMes;
@@ -104,11 +108,11 @@ Algoritmo TP_Programacion
 	//finalizamos la carga de articulos y comenzamos a operar en el menu
 	Repetir
 		Escribir "Seleccione una opcion:";
-		escribir "1. Mostrar lista de artículos ordenada por descripción";
-		escribir "2. Mostrar lista de artículos ordenada por cantidad vendida";
-		escribir "3. Mostrar stock actual de artículos";
-		escribir "4. Buscar artículo por código";
-		escribir "5. Mostrar estadísticas";
+		escribir "1. Mostrar lista de artÃ­culos ordenada por descripciÃ³n";
+		escribir "2. Mostrar lista de artÃ­culos ordenada por cantidad vendida";
+		escribir "3. Mostrar stock actual de artÃ­culos";
+		escribir "4. Buscar artÃ­culo por cÃ³digo";
+		escribir "5. Mostrar estadÃ­sticas";
 		escribir "6. Salir";
 		leer op;
 		si op<>1 & op<>2 & op<>3 & op<>4 & op<>5 & op<>6 Entonces
@@ -137,7 +141,7 @@ Algoritmo TP_Programacion
 				Escribir "";
 			3:
 				//mostrar stock actual de articulos
-				Escribir "Mostrar stock actual de artículos";
+				Escribir "Mostrar stock actual de artÃ­culos";
 				Para i = 0 Hasta cant - 1 Con Paso 1 Hacer
 					Escribir "Codigo: ", articulos[i,0];
 					Escribir "Descripcion: ", articulos[i,1];
@@ -156,8 +160,8 @@ Algoritmo TP_Programacion
 						codValido=Verdadero;
 						Escribir "Codigo: ", articulos[i,0];
 						Escribir "Descripcion: ", articulos[i,1];
-						Escribir "Cantidad vendida en la 1° quincena: ", articulos[i,4];
-						Escribir "Cantidad vendida en la 2° quincena: ", articulos[i,5];
+						Escribir "Cantidad vendida en la 1Â° quincena: ", articulos[i,4];
+						Escribir "Cantidad vendida en la 2Â° quincena: ", articulos[i,5];
 						//stock=ConvertirANumero(articulos[i,3]);
 						//stockAct=stock-ventaMes;
 						Escribir "Stock actual: ", articulos[i,7];
@@ -169,13 +173,13 @@ Algoritmo TP_Programacion
 					FinSi
 				FinPara
 				si codValido=falso Entonces
-					Escribir "No existe artículo con ese código.";
+					Escribir "No existe artÃ­culo con ese cÃ³digo.";
 					Escribir "";
 				FinSi
 				
 			5:  //mostrar estadisticas
 				//priner estadistica: porcentaje de la cantidad de articulos vendidos de cada rubro del total de ventas
-				Escribir "Porcentaje de la cantidad de artículos vendidos de cada rubro sobre la cantidad total de ventas:";
+				Escribir "Porcentaje de la cantidad de artÃ­culos vendidos de cada rubro sobre la cantidad total de ventas:";
 				estadisticaPrimerPunto(articulos, cant, totalVentas, pje);
 				Escribir "Rubro: Tornillos y tuercas(100): ", pje[0], "%";
 				Escribir "Rubro: Adhesivos(300): ", pje[1], "%";
@@ -245,7 +249,7 @@ subproceso ValidarCodigo(rub por referencia, cod por referencia, rubro Por Refer
 	Escribir "(5 digitos para el numero de articulo)";
 	leer cod;
 	mientras cod < 10000 | cod > 99999 hacer
-		Escribir "Código invalido, ingrese nuevamente:";
+		Escribir "CÃ³digo invalido, ingrese nuevamente:";
 		Leer cod;
 	Finmientras
 	rubro=ConvertirATexto(rub);
@@ -254,10 +258,10 @@ Finsubproceso
 
 
 //subproceso para ordenar por descripcion el arreglo
-subproceso OrdenarPorDescripcion(articulos, cant)
+subproceso OrdenarPorDescripcion(articulos Por Referencia, cant)
 	definir primer_pos, k, i, j Como entero;
 	Definir auxiliarArt Como Caracter;
-	dimension auxiliarArt[7];
+	dimension auxiliarArt[8];
 	para i = 0 hasta cant -2 con paso 1 Hacer
 		primer_pos = i;
 		para j = i + 1 hasta cant -1 con paso 1 Hacer
@@ -265,8 +269,8 @@ subproceso OrdenarPorDescripcion(articulos, cant)
 				primer_pos = j;
 			FinSi
 		FinPara
-//la variable k recorre todo el arreglo para poder guardar todos los datos de un mismo arreglo en la misma posicion
-		para k=0 hasta 6 con paso 1 Hacer
+	    //la variable k recorre todo el arreglo para poder guardar todos los datos de un mismo arreglo en la misma posicion
+		para k=0 hasta 7 con paso 1 Hacer
 			auxiliarArt[k] = articulos[i,k];
 			articulos[i,k] = articulos[primer_pos,k];
 			articulos[primer_pos,k] = auxiliarArt[k];
@@ -276,10 +280,10 @@ FinSubProceso
 
 
 //subproceso para ordenar por venta de manera descendiente
-subproceso OrdenarPorVenta(articulos, cant)
+subproceso OrdenarPorVenta(articulos Por Referencia, cant)
 	definir i, j, k, primer_pos como entero;
 	Definir auxiliarArt Como Caracter;
-	dimension auxiliarArt[7];
+	dimension auxiliarArt[8];
 	para i = 0 hasta cant -2 con paso 1 Hacer
 		primer_pos = i;
 		para j = i + 1 hasta cant -1 con paso 1 Hacer
@@ -287,15 +291,14 @@ subproceso OrdenarPorVenta(articulos, cant)
 				primer_pos = j;
 			FinSi
 		FinPara
-//la variable k recorre todo el arreglo para poder guardar todos los datos de un mismo arreglo en la misma posicion
-		para k=0 hasta 6 con paso 1 Hacer
+        //la variable k recorre todo el arreglo para poder guardar todos los datos de un mismo arreglo en la misma posicion
+		para k=0 hasta 7 con paso 1 Hacer
 			auxiliarArt[k] = articulos[i,k];
 			articulos[i,k] = articulos[primer_pos,k];
 			articulos[primer_pos,k] = auxiliarArt[k];
 		FinPara
 	FinPara
 FinSubProceso
-
 
 //subproceso para calcular porcentaje de cada rubro
 subproceso estadisticaPrimerPunto(articulos, cant, totalVentas, pje)
